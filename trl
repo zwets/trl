@@ -196,7 +196,7 @@ fi | awk -v P="$(basename "$0")" -v S=$F_SHIFT -v C=$F_REV -v R=$REVERSE -v L=$T
         } else if ($0 ~ /^([[:upper:]][[:lower:]][[:lower:]]|\*\*\*)+$/) {
             IN_TYPE="la"; A = 1;
         } else {
-            err_exit("invalid input: " $0)
+            err_exit("invalid input: " $0 " (maybe use -d and/or -x)")
         }
         if (IN_TYPE != "nt" && !UNFASTA && (S || C)) {
             err_exit("frame option is valid only when translating nucleotides");
@@ -245,7 +245,7 @@ fi | awk -v P="$(basename "$0")" -v S=$F_SHIFT -v C=$F_REV -v R=$REVERSE -v L=$T
             s = tolower(s)
             gsub("t","u", s);
             t = T[s]; if (!t) {
-                if (X) t = "X"; else err_exit("cannot translate codon: " s);
+                 if (X) t = "X"; else err_exit("cannot translate codon: " s " (maybe use -d and/or -x)");
                 }
             r = L ? A3[t] : t;
         }
